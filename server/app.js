@@ -1,9 +1,16 @@
 require('dotenv').config();
 const express = require('express');
+const mongoose = require('mongoose');
 
 const PORT = process.env.PORT || 3001;
 
 const app = express();
+
+mongoose.connect(process.env.DATABASE_URL).then(
+    () => { console.log(`—connected to database`); }
+).catch((err) => {
+    console.log(`—database connection failed : ${err}`);
+})
 
 app.get('/', (req, res) => {
     res.send('Hello, Express');
