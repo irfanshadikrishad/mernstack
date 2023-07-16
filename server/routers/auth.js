@@ -15,11 +15,13 @@ router.route('/login').post((req, res) => {
             if (!data) {
                 res.status(400).json({ message: "Invalid Credentials" });
             } else {
-                if (data.email == email && data.password == password) {
-                    res.status(200).send({ message: "Logged in successfull" })
-                } else {
-                    res.status(400).json({ message: "Invalid Credentials" });
-                }
+                bcrypt.compare(password, data.password, function (err, result) {
+                    if (data.email == email && result) {
+                        res.status(200).send({ message: "Logged in successfull" })
+                    } else {
+                        res.status(400).json({ message: "Invalid Credentials" });
+                    }
+                })
             }
         })
     }
@@ -43,7 +45,6 @@ router.post('/registration', (req, res) => {
                         password: hash
                     });
                     user.save().then(data => {
-                        console.log(`—registered successfully : ${email}`);
                         res.status(201).json({ message: `user saved successfully` })
                     }).catch(err => {
                         res.send(`user failed to save ${err.message}`)
