@@ -16,6 +16,7 @@ router.route('/login').post((req, res) => {
                 res.status(400).json({ message: "Invalid Credentials" });
             } else {
                 bcrypt.compare(password, data.password, function (err, result) {
+                    const token = data.genJWT();
                     if (data.email == email && result) {
                         res.status(200).send({ message: "Logged in successfull" })
                     } else {
