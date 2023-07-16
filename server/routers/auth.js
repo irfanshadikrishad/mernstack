@@ -1,6 +1,10 @@
+require('dotenv').config();
 const express = require('express');
+const bcrypt = require('bcrypt');
 const router = express.Router();
 const User = require('../models/user');
+
+const SALT = Number(process.env.SALT);
 
 router.route('/login').post((req, res) => {
     const { email, password } = req.body;
@@ -27,12 +31,24 @@ router.post('/registration', (req, res) => {
         if (data) {
             res.send('User already exists!');
         } else {
-            const user = new User(req.body);
-            user.save().then(data => {
-                console.log(`—registered successfully : ${email}`);
-                res.status(201).json({ message: `user saved successfully` })
-            }).catch(err => {
-                res.send(`user failed to save ${err.message}`)
+            bcrypt.hash(password, SALT, function (err, hash) {
+                if (err) {
+                    res.status(401).json({ error: err.message });
+                } else {
+                    const user = new User({
+                        name: name,
+                        email: email,
+                        phone: phone,
+                        work: work,
+                        password: hash
+                    });
+                    user.save().then(data => {
+                        console.log(`—registered successfully : ${email}`);
+                        res.status(201).json({ message: `user saved successfully` })
+                    }).catch(err => {
+                        res.send(`user failed to save ${err.message}`)
+                    })
+                }
             })
         }
     }).catch(err => {
