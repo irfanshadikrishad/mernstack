@@ -6,7 +6,9 @@ const User = require('../models/user');
 
 const SALT = Number(process.env.SALT);
 
-router.route('/login').post((req, res) => {
+router.route('/login').get((req, res) => {
+    res.send('Login');
+}).post((req, res) => {
     const { email, password } = req.body;
     if (!email || !password) {
         res.status(400).json({ error: "Please fill the email and password" })
@@ -16,12 +18,19 @@ router.route('/login').post((req, res) => {
                 res.status(400).json({ message: "Invalid Credentials" });
             } else {
                 bcrypt.compare(password, data.password, function (err, result) {
-                    const token = data.genJWT();
-                    if (data.email == email && result) {
-                        res.status(200).send({ message: "Logged in successfull" })
-                    } else {
-                        res.status(400).json({ message: "Invalid Credentials" });
-                    }
+                    const token = data.genJWT().then(jwt_token => {
+                        console.log(`—jwt_token: ${jwt_token}`);
+                        if (data.email == email && result) {
+                            res.cookie("jwt_token", jwt_token, {
+                                expires: new Date(Date.now() + 25892000000),
+                                httpOnly: true
+                            }).send({ message: "Logged in successfull" })
+                        } else {
+                            res.status(400).json({ message: "Invalid Credentials" });
+                        }
+                    }).catch(err => {
+                        console.log(`—token error ${err.message}`);
+                    });
                 })
             }
         })

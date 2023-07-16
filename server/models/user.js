@@ -35,7 +35,7 @@ userSchema.methods.genJWT = async function () {
         }, process.env.JWT_TOKEN)
         this.tokens = this.tokens.concat({ token: token })
         this.save().then(data => {
-            console.log(`—token saved successfully ${data}`);
+            console.log(`—token generated successfully`);
         }).catch(err => {
             console.log(`—failed to save token ${err.message}`);
         })
