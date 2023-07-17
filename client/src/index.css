@@ -5,10 +5,36 @@
 }
 
 body {
+  background-color: whitesmoke;
+  color: #252525;
+}
+
+.container {
+  width: 60%;
+  margin: 0 auto;
+}
+
+.logo {
+  width: 45px;
+}
+
+nav {
+  padding: 10px 0;
+}
+
+.navbar {
   display: flex;
   align-items: center;
-  justify-content: center;
-  height: 100vh;
-  background-color: #252525;
-  color: whitesmoke;
+  justify-content: space-between;
+}
+
+.nav_btns {
+  display: flex;
+  gap: 10px;
+}
+
+.nav_btns>a {
+  text-decoration: none;
+  color: #252525;
+  font-weight: 500;
 }
