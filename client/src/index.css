@@ -38,3 +38,11 @@ nav {
   color: #252525;
   font-weight: 500;
 }
+
+.home {
+  padding-top: 10vh;
+}
+
+.nav_btns>.active {
+  color: rgb(53, 185, 108);
+}
