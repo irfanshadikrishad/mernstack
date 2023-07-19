@@ -1,8 +1,8 @@
 export default function Home() {
     return (
         <div className="container home">
-            <p>Welcome to</p>
-            <h1>MERN Stack</h1>
+            <p className="welcome">Welcome to</p>
+            <h1 className="nav__title">MERN Stack</h1>
         </div>
     )
 }

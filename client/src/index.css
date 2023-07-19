@@ -1,3 +1,10 @@
+:root {
+  --background: whitesmoke;
+  --text: #252525;
+  --primary: white;
+  --secondary: rgb(53, 185, 108);
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -5,8 +12,8 @@
 }
 
 body {
-  background-color: whitesmoke;
-  color: #252525;
+  background-color: var(--background);
+  color: var(--text);
 }
 
 .container {
@@ -35,7 +42,7 @@ nav {
 
 .nav_btns>a {
   text-decoration: none;
-  color: #252525;
+  color: var(--text);
   font-weight: 500;
 }
 
@@ -43,6 +50,74 @@ nav {
   padding-top: 10vh;
 }
 
+.nav__title {
+  color: var(--secondary);
+}
+
 .nav_btns>.active {
-  color: rgb(53, 185, 108);
+  color: var(--secondary);
+}
+
+.welcome {
+  font-weight: 500;
+  opacity: 80%;
+  font-style: italic;
+  text-transform: uppercase;
+}
+
+.reg__img {
+  width: 150px;
+}
+
+.reg__main {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+  background-color: #fffffffa;
+  border-radius: 8px;
+  padding: 50px 25px;
+}
+
+.reg__right {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.reg__login {
+  font-weight: 500;
+  font-style: italic;
+  opacity: 80%;
+}
+
+.reg__form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-top: 10px;
+}
+
+.reg__form>input {
+  font-size: 1rem;
+  padding: 5px 10px;
+  border: none;
+  outline: none;
+  background-color: whitesmoke;
+}
+
+.reg__form>button {
+  width: 200px;
+  padding: 5px 10px;
+  font-size: 1rem;
+  font-style: italic;
+  font-weight: 500;
+  background-color: var(--secondary);
+  color: var(--background);
+  border: none;
+  cursor: pointer;
+}
+
+.reg__login>a {
+  color: var(--secondary);
 }
