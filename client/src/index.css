@@ -107,7 +107,8 @@ nav {
   background-color: whitesmoke;
 }
 
-.reg__form>button {
+.reg__form>button,
+.contact__form>button {
   width: 200px;
   padding: 5px 10px;
   font-size: 1rem;
@@ -121,4 +122,41 @@ nav {
 
 .reg__login>a {
   color: var(--secondary);
+}
+
+.contact__main {
+  background-color: var(--primary);
+  padding: 25px 20px;
+  border-radius: 8px;
+}
+
+.contact__inputs {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 5px;
+}
+
+.contact__inputs>input {
+  font-size: 1rem;
+  padding: 5px 10px;
+  border: none;
+  background-color: var(--background);
+  outline: none;
+}
+
+.contact__form>div {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.contact__form>div>textarea {
+  font-size: 1rem;
+  width: -webkit-fill-available;
+  background-color: var(--background);
+  border: none;
+  outline: none;
+  padding: 10px;
+  height: 100px;
+  margin-bottom: 10px;
 }
