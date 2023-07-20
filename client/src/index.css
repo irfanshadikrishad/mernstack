@@ -78,7 +78,8 @@ nav {
   padding: 50px 25px;
 }
 
-.reg__right {
+.reg__right,
+.log__left {
   display: flex;
   flex-direction: column;
   align-items: center;
