@@ -108,7 +108,8 @@ nav {
 }
 
 .reg__form>button,
-.contact__form>button {
+.contact__form>button,
+form.about>button {
   width: 200px;
   padding: 5px 10px;
   font-size: 1rem;
@@ -159,4 +160,58 @@ nav {
   padding: 10px;
   height: 100px;
   margin-bottom: 10px;
+}
+
+.about__img {
+  width: 150px;
+}
+
+.about__name {
+  font-style: italic;
+  color: var(--secondary);
+}
+
+.about__tag {
+  font-weight: 500;
+  opacity: 80%;
+}
+
+.about__details>P:nth-child(1) {
+  font-style: italic;
+  font-weight: 500;
+  -webkit-text-decoration: wavy;
+  text-decoration: underline;
+  color: var(--secondary);
+}
+
+.about__details {
+  padding: 15px 0;
+}
+
+.about__hl {
+  font-weight: bold;
+  font-style: italic;
+}
+
+.about__header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.about__table {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+form.about {
+  padding: 10vh 200px;
+  background-color: var(--primary);
+  border-radius: 8px;
+}
+
+.about__table>p {
+  color: var(--secondary);
+  font-weight: 500;
+  font-style: italic;
 }
