@@ -215,3 +215,11 @@ form.about {
   font-weight: 500;
   font-style: italic;
 }
+
+.error__page {
+  text-align: center;
+}
+
+.error__img {
+  width: 200px;
+}
