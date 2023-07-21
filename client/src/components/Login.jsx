@@ -8,7 +8,7 @@ export default function Login() {
                     <img className="reg__img" src="/favicon.png" alt="" />
                     <p className="reg__login">
                         Don't have an account?
-                        <NavLink to="/registration">Register</NavLink>
+                        <NavLink to="/register">Register</NavLink>
                     </p>
                 </div>
                 <div className="log__right">

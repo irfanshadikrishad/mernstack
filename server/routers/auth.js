@@ -37,15 +37,17 @@ router.route('/login').get((req, res) => {
     }
 })
 
-router.post('/registration', (req, res) => {
-    const { name, email, phone, work, password } = req.body;
+router.post('/registration', async (req, res) => {
+    const { name, email, phone, work, password } = await req.body;
+    console.log(req.body);
     User.findOne({ email: email }).then(data => {
         if (data) {
             res.send('User already exists!');
         } else {
             bcrypt.hash(password, SALT, function (err, hash) {
                 if (err) {
-                    res.status(401).json({ error: err.message });
+                    console.log(`—error in registration post ${err.message}`);
+                    res.status(422).json({ error: err.message });
                 } else {
                     const user = new User({
                         name: name,

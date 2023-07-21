@@ -26,7 +26,7 @@ const userSchema = new Schema({
     tokens: [{
         token: { type: String, required: true }
     }]
-})
+}, { timestamps: true })
 
 userSchema.methods.genJWT = async function () {
     try {

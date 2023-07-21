@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 export default function Registration() {
+    const navigate = useNavigate()
     const [user, setUser] = useState({
         name: "",
         email: "",
@@ -17,18 +18,46 @@ export default function Registration() {
             ...user, [handle_name]: handle_value
         })
     }
+    const register = async (e) => {
+        e.preventDefault();
+        const { name, email, phone, work, password } = user;
+        if (name === "" || email === "" || phone === "" || work === "" || password === "") {
+            window.alert("Invalid Registration Data!");
+            navigate('/register');
+            return;
+        }
+        const res = await fetch('http://localhost:3001/registration', {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                name, email, phone, work, password
+            })
+        })
+        const data = await res.json();
+        console.log(data);
+        if (data.status === 422 || !data) {
+            window.alert("Invalid Registration!")
+            console.log("Invalid Registration!")
+        } else {
+            window.alert(" Registration Successfull")
+            console.log(" Registration Successfull")
+            navigate('/login');
+        }
+    }
     return (
         <section className="container">
             <div className="reg__main">
                 <div className="reg__left">
                     <h1 className="nav__title">Registration</h1>
                     <form className="reg__form" method="post">
-                        <input value={user.name} onChange={handleInputs} autoComplete="off" name="name" type="text" placeholder="Your Name" />
-                        <input value={user.email} onChange={handleInputs} autoComplete="off" name="email" type="email" placeholder="Your Email" />
-                        <input value={user.phone} onChange={handleInputs} autoComplete="off" name="phone" type="number" placeholder="Your Phone" />
-                        <input value={user.work} onChange={handleInputs} autoComplete="off" name="work" type="text" placeholder="Occupasion" />
-                        <input value={user.password} onChange={handleInputs} autoComplete="off" name="password" type="password" placeholder="Password" />
-                        <button type="submit">Register</button>
+                        <input value={user.name} onChange={handleInputs} name="name" type="text" placeholder="Your Name" />
+                        <input value={user.email} onChange={handleInputs} name="email" type="email" placeholder="Your Email" />
+                        <input value={user.phone} onChange={handleInputs} name="phone" type="number" placeholder="Your Phone" />
+                        <input value={user.work} onChange={handleInputs} name="work" type="text" placeholder="Occupasion" />
+                        <input value={user.password} onChange={handleInputs} name="password" type="password" placeholder="Password" />
+                        <button type="submit" onClick={register}>Register</button>
                     </form>
                 </div>
                 <div className="reg__right">
