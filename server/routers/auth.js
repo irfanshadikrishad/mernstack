@@ -8,8 +8,9 @@ const SALT = Number(process.env.SALT);
 
 router.route('/login').get((req, res) => {
     res.send('Login');
-}).post((req, res) => {
-    const { email, password } = req.body;
+}).post(async (req, res) => {
+    const { email, password } = await req.body;
+    console.log(req.body);
     if (!email || !password) {
         res.status(400).json({ error: "Please fill the email and password" })
     } else {
@@ -24,9 +25,9 @@ router.route('/login').get((req, res) => {
                             res.cookie("jwt_token", jwt_token, {
                                 expires: new Date(Date.now() + 25892000000),
                                 httpOnly: true
-                            }).send({ message: "Logged in successfull" })
+                            }).json({ message: "Logged in successfull" })
                         } else {
-                            res.status(400).json({ message: "Invalid Credentials" });
+                            res.status(401).json({ error: "Invalid Credentials auth-30" });
                         }
                     }).catch(err => {
                         console.log(`—token error ${err.message}`);

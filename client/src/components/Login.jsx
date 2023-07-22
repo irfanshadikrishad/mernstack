@@ -1,6 +1,31 @@
-import { NavLink } from "react-router-dom";
+import React, { useState } from "react";
+import { NavLink, useNavigate } from "react-router-dom";
 
 export default function Login() {
+    const navigate = useNavigate();
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const loginUser = async (e) => {
+        e.preventDefault();
+        const res = await fetch('http://localhost:3001/login', {
+            method: "POST",
+            credentials: "include",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                email, password
+            })
+        })
+        const data = await res.json();
+        console.log(data, "login-20", `code:${res.status}`);
+        if (res.status !== 200 || email === "" || password === "") {
+            window.alert(`invalid credentials — ${data.error}`);
+        } else {
+            window.alert(data.message);
+            navigate('/');
+        }
+    }
     return (
         <div className="container">
             <div className="reg__main">
@@ -14,9 +39,25 @@ export default function Login() {
                 <div className="log__right">
                     <h1 className="nav__title">Login</h1>
                     <form method="post" className="reg__form">
-                        <input name="email" type="text" placeholder="Email" autoComplete="off" />
-                        <input name="password" type="password" placeholder="Password" autoComplete="off" />
-                        <button type="submit">Login</button>
+                        <input
+                            value={email}
+                            onChange={(e) => {
+                                setEmail(e.target.value)
+                            }}
+                            name="email"
+                            type="text"
+                            placeholder="Email"
+                        />
+                        <input
+                            value={password}
+                            onChange={(e) => {
+                                setPassword(e.target.value)
+                            }}
+                            name="password"
+                            type="password"
+                            placeholder="Password"
+                        />
+                        <button type="submit" onClick={loginUser}>Login</button>
                     </form>
                 </div>
             </div>
