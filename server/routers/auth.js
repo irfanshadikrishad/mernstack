@@ -75,4 +75,8 @@ router.get('/about', authorize, (req, res) => {
     res.send(req.rootUser);
 })
 
+router.get('/getdata', authorize, (req, res) => {
+    res.send(req.rootUser);
+})
+
 module.exports = router;
