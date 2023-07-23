@@ -3,6 +3,7 @@ const express = require('express');
 const bcrypt = require('bcrypt');
 const router = express.Router();
 const User = require('../models/user');
+const authorize = require('../middleware/authorize');
 
 const SALT = Number(process.env.SALT);
 
@@ -68,6 +69,10 @@ router.post('/registration', async (req, res) => {
     }).catch(err => {
         res.status(500).json({ error: err.message });
     })
+})
+
+router.get('/about', authorize, (req, res) => {
+    res.send(req.rootUser);
 })
 
 module.exports = router;

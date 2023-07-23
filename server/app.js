@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const auth = require('./routers/auth');
 const cors = require('cors');
+const cookieParser = require('cookie-parser');
 // Constants
 const PORT = process.env.PORT || 3001;
 // Database Connections
@@ -20,6 +21,7 @@ app.use(cors({
 }));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json()); // important to send post request
+app.use(cookieParser());
 app.use(auth);
 // Listening
 app.listen(PORT, () => {
