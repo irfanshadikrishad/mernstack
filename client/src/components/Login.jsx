@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
+import { UserContext } from "../App";
 
 export default function Login() {
+    const { state, dispatch } = useContext(UserContext);
     const navigate = useNavigate();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -22,6 +24,7 @@ export default function Login() {
         if (res.status !== 200 || email === "" || password === "") {
             window.alert(`invalid credentials — ${data.error}`);
         } else {
+            dispatch({ type: "USER", payload: true });
             window.alert(data.message);
             navigate('/');
         }
