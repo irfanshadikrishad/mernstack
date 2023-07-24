@@ -13,6 +13,7 @@ export default function Navbar() {
                     <NavLink to="/contact">Contact</NavLink>
                     <NavLink to="/login">Login</NavLink>
                     <NavLink to="/register">Registration</NavLink>
+                    <NavLink to="/logout">Logout</NavLink>
                 </div>
             </div>
         </nav>

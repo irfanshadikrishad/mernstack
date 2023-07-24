@@ -98,4 +98,9 @@ router.post('/contact', authorize, async (req, res) => {
     }
 })
 
+router.get('/logout', (req, res) => {
+    res.clearCookie('jwt_token', { path: '/' });
+    res.status(200).send('User Logout');
+})
+
 module.exports = router;
