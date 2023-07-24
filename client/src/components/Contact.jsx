@@ -54,15 +54,27 @@ export default function Contact() {
     }
 
     function successToast() {
-        toast.success("🦄 Messege Sent Successfully.", {
+        toast.success('Sent Successfully.', {
             position: "top-right",
-            autoClose: 1000,
+            autoClose: 5000,
             hideProgressBar: false,
             closeOnClick: true,
             pauseOnHover: true,
             draggable: true,
             progress: undefined,
-            theme: "colored",
+            theme: "light",
+        });
+    }
+    function errorToast() {
+        toast.error('Failed Sending Message, Try again later.', {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
         });
     }
 
@@ -90,6 +102,7 @@ export default function Contact() {
                 ...contact, message: ""
             })
         } else {
+            errorToast();
             console.log('cant send message');
         }
     }
