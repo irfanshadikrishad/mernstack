@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function Registration() {
     const navigate = useNavigate()
@@ -18,11 +20,23 @@ export default function Registration() {
             ...user, [handle_name]: handle_value
         })
     }
+    function errorToast(error) {
+        toast.error(`${error}`, {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+        });
+    }
     const register = async (e) => {
         e.preventDefault();
         const { name, email, phone, work, password } = user;
         if (name === "" || email === "" || phone === "" || work === "" || password === "") {
-            window.alert("Invalid Registration Data!");
+            errorToast("Field's can't be empty");
             navigate('/register');
             return;
         }
@@ -38,11 +52,9 @@ export default function Registration() {
         const data = await res.json();
         console.log(data);
         if (data.status === 422 || !data) {
-            window.alert("Invalid Registration!")
+            errorToast(data.error);
             console.log("Invalid Registration!")
         } else {
-            window.alert(" Registration Successfull")
-            console.log(" Registration Successfull")
             navigate('/login');
         }
     }
@@ -68,6 +80,7 @@ export default function Registration() {
                     </p>
                 </div>
             </div>
+            <ToastContainer />
         </section>
     )
 }

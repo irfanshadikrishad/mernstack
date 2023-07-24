@@ -21,6 +21,18 @@ export default function Login() {
             theme: "colored",
         });
     }
+    function errorToast(error) {
+        toast.error(`[${error}]`, {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+        });
+    }
     const loginUser = async (e) => {
         e.preventDefault();
         const res = await fetch('http://localhost:3001/login', {
@@ -36,7 +48,7 @@ export default function Login() {
         const data = await res.json();
         console.log(data, "login-20", `code:${res.status}`);
         if (res.status !== 200 || email === "" || password === "") {
-            window.alert(`invalid credentials — ${data.error}`);
+            errorToast(data.error);
         } else {
             dispatch({ type: "USER", payload: true });
             await successToast();
