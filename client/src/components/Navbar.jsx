@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
+import PowerSettingsNewIcon from '@mui/icons-material/PowerSettingsNew';
 
 export default function Navbar() {
     const [state, setState] = useState(false);
+    const [isMobile, setIsMobile] = useState(false);
 
     const callUser = async () => {
         try {
@@ -36,7 +38,9 @@ export default function Navbar() {
     useEffect(() => {
         callUser();
     })
-
+    function menuToggle() {
+        setIsMobile(!isMobile);
+    }
     return (
         <nav>
             <div className="navbar container">
@@ -44,11 +48,14 @@ export default function Navbar() {
                     <img className="logo" src="/favicon.png" alt="logo" />
                 </a>
                 <div className="nav_btns">
-                    <NavLink to="/">Home</NavLink>
-                    <NavLink to="/about">About</NavLink>
-                    <NavLink to="/contact">Contact</NavLink>
-                    {state ? <NavLink to="/logout">Logout</NavLink> : <><NavLink to="/login">Login</NavLink>
-                        <NavLink to="/register">Registration</NavLink></>}
+                    <div className="nav_btns_2" id={isMobile ? "menu1" : "menu0"}>
+                        <NavLink to="/">Home</NavLink>
+                        <NavLink to="/about">About</NavLink>
+                        <NavLink to="/contact">Contact</NavLink>
+                        {state ? <NavLink to="/logout">Logout</NavLink> : <><NavLink to="/login">Login</NavLink>
+                            <NavLink to="/register">Registration</NavLink></>}
+                    </div>
+                    <button onClick={menuToggle} id="menu" >{<PowerSettingsNewIcon />}</button>
                 </div>
             </div>
         </nav>
