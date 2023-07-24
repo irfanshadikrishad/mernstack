@@ -51,6 +51,7 @@ nav {
 }
 
 .nav__title {
+  font-style: italic;
   color: var(--secondary);
 }
 
@@ -61,8 +62,15 @@ nav {
 .welcome {
   font-weight: 500;
   opacity: 80%;
-  font-style: italic;
   text-transform: uppercase;
+}
+
+.welcome_message {
+  font-weight: lighter;
+  margin-top: 8px;
+  color: var(--text);
+  opacity: 80%;
+  font-size: 17px;
 }
 
 .reg__img {
