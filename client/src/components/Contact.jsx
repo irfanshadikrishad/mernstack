@@ -1,4 +1,6 @@
 import { useState, useEffect } from "react";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function Contact() {
     const [contact, setContact] = useState({
@@ -51,6 +53,19 @@ export default function Contact() {
         })
     }
 
+    function successToast() {
+        toast.success("🦄 Messege Sent Successfully.", {
+            position: "top-right",
+            autoClose: 1000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+        });
+    }
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         const { name, email, phone, message } = contact;
@@ -70,7 +85,7 @@ export default function Contact() {
         const data = await res.json();
 
         if (res.status === 200) {
-            alert('message sent successfully');
+            successToast();
             setContact({
                 ...contact, message: ""
             })
@@ -113,6 +128,7 @@ export default function Contact() {
                     </div>
                     <button type="submit" onClick={handleSubmit}>Send</button>
                 </form>
+                <ToastContainer />
             </div>
         </div>
     )

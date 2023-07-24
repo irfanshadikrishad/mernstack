@@ -1,12 +1,26 @@
 import React, { useContext, useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { UserContext } from "../App";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function Login() {
     const { state, dispatch } = useContext(UserContext);
     const navigate = useNavigate();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    function successToast() {
+        toast.success("🐹 Logged in Successfully.", {
+            position: "top-right",
+            autoClose: 1000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+        });
+    }
     const loginUser = async (e) => {
         e.preventDefault();
         const res = await fetch('http://localhost:3001/login', {
@@ -25,7 +39,7 @@ export default function Login() {
             window.alert(`invalid credentials — ${data.error}`);
         } else {
             dispatch({ type: "USER", payload: true });
-            window.alert(data.message);
+            await successToast();
             navigate('/');
         }
     }
@@ -62,6 +76,7 @@ export default function Login() {
                         />
                         <button type="submit" onClick={loginUser}>Login</button>
                     </form>
+                    <ToastContainer />
                 </div>
             </div>
         </div>

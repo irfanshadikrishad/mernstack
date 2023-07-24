@@ -33,8 +33,12 @@ export default function Home() {
     return (
         <div className="container home">
             <p className="welcome">Welcome</p>
-            <h1 className="nav__title">{username === "" ? "MERN Stack Developer" : username}</h1>
-            <p className="welcome_message">{username === "" ? "" : "Happy, to see you back."}</p>
+            <h1 className="nav__title">
+                {username === "" ? "MERN Stack Developer" : username}
+            </h1>
+            <p className="welcome_message">
+                {username === "" ? "" : "Happy, to see you back."}
+            </p>
         </div>
     )
 }
