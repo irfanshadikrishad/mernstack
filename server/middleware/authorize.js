@@ -15,7 +15,7 @@ const authorize = async (req, res, next) => {
 
         req.token = token;
         req.rootUser = rootUser;
-        req.userID = rootUser._id;
+        req.userID = req.rootUser._id;
 
         next();
 

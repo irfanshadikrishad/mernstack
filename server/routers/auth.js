@@ -79,4 +79,23 @@ router.get('/getdata', authorize, (req, res) => {
     res.send(req.rootUser);
 })
 
+router.post('/contact', authorize, async (req, res) => {
+    try {
+        const { name, email, phone, message } = req.body;
+        if (name != "" || email != "" || phone != "" || message != "") {
+            console.log(`—user id : ${req.userID}`);
+            const userContact = await User.findOne({ _id: req.userID });
+            if (userContact) {
+                const userMessage = await userContact.addMessage(name, email, phone, message);
+                await userContact.save();
+                res.status(200).json({ message: "message sent successfully" })
+            }
+        } else {
+            return res.json({ error: "Please fill the form properly" });
+        }
+    } catch (error) {
+        console.log(`—router 97 : ${error}`);
+    }
+})
+
 module.exports = router;

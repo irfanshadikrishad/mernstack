@@ -1,7 +1,12 @@
 import { useState, useEffect } from "react";
 
 export default function Contact() {
-    const [contact, setContact] = useState('');
+    const [contact, setContact] = useState({
+        name: "",
+        email: "",
+        phone: "",
+        message: ""
+    });
 
     const userContact = async () => {
         try {
@@ -16,7 +21,12 @@ export default function Contact() {
 
             const data = await res.json();
 
-            setContact(data);
+            setContact({
+                ...contact,
+                name: data.name,
+                email: data.email,
+                phone: data.phone
+            });
 
             if (res.status !== 200) {
                 const error = new Error(res.error);
@@ -30,7 +40,45 @@ export default function Contact() {
 
     useEffect(() => {
         userContact();
-    })
+    }, [])
+
+    const handleInputs = (e) => {
+        const name = e.target.name;
+        const value = e.target.value;
+        setContact({
+            ...contact,
+            [name]: value
+        })
+    }
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        const { name, email, phone, message } = contact;
+        const res = await fetch('http://localhost:3001/contact', {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                name, email, phone, message
+            }),
+            credentials: "include"
+        })
+
+        console.log(res.status);
+
+        const data = await res.json();
+
+        if (res.status === 200) {
+            alert('message sent successfully');
+            setContact({
+                ...contact, message: ""
+            })
+        } else {
+            console.log('cant send message');
+        }
+    }
+
     return (
         <div className="container">
             <div className="contact__main">
@@ -41,22 +89,29 @@ export default function Contact() {
                             <input
                                 name="name"
                                 type="text"
+                                onChange={handleInputs}
                                 value={contact.name}
                                 placeholder="Your Name" />
                             <input
                                 name="email"
                                 type="email"
+                                onChange={handleInputs}
                                 value={contact.email}
                                 placeholder="Your Email" />
                             <input
                                 name="phone"
                                 type="number"
+                                onChange={handleInputs}
                                 value={contact.phone}
                                 placeholder="Your Phone" />
                         </div>
-                        <textarea name="message"></textarea>
+                        <textarea
+                            name="message"
+                            onChange={handleInputs}
+                            value={contact.message}>
+                        </textarea>
                     </div>
-                    <button type="submit">Send</button>
+                    <button type="submit" onClick={handleSubmit}>Send</button>
                 </form>
             </div>
         </div>
